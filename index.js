@@ -58,7 +58,7 @@
                 }))
         });
 
-        config.appPools.foreach(function(item){
+        config.appPools.forEach(function(item){
             var cmd = 'iisexpress /apppool:"' + item + '"';
 
             if(config.configFile !== ""){
