@@ -13,6 +13,9 @@
         if(!config){
             throw new util.PluginError(PLUGIN_NAME, "Config file is missing!");
         }
+		if(!config.configFile){
+            config.configFile = "";
+        }
         if(!config.sitePaths){
             config.sitePaths = [];
         }
@@ -29,7 +32,7 @@
             config.iisExpressPath = "C:\\Program Files (x86)\\IIS Express"
         }
 
-        return gulp.src('./index.html')
+        return gulp.src('/index.html')
             .pipe(open('', {
                 url: config.startUrl,
                 app: config.browser
