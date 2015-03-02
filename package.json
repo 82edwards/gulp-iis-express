@@ -3,22 +3,21 @@
 	"version": "1.0.0",
 	"description": "Gulp plugin for starting iis express",
 	"repository":{
-	"type": "git",
+		"type": "git",
 		"url": "git://github.com/82edwards/gulp-iis-express"
 	},
 	"author":{
 		"name" : "Ethan Ward & David Edwards",
 		"email" :"graymaul@gmail.com && 82edwards@gmail.com"
 	},
-	"tags":{
+	"tags":[
 		"iis",
 		"iisexpress"
-	},
-	files: [
+	],
+	"files": [
 		"index.js",
 		"index.html"
-	]
-
+	],
 	"dependencies": {
 		"gulp-open": "^0.3.2",
 		"gulp": "^3.8.11",
