@@ -9,19 +9,36 @@
 
     //main gulp plugin function
     function gulpIISExpress(config){
-      return gulp.src('./index.html')
-          .pipe(open('', {
-              url: config.startUrl,
-              app: config.browser
-          }))
-          .pipe(startSites(config));
+
+        if(!config){
+            throw new util.PluginError(PLUGIN_NAME, "Config file is missing!");
+        }
+        if(!config.sitePaths){
+            config.sitePaths = [];
+        }
+        if(!config.appPools){
+            config.appPools = [];
+        }
+        if(!config.startUrl || config.startUrl == ""){
+            throw new util.PluginError(PLUGIN_NAME, "StartUrl must be provided");
+        }
+        if(!config.browser || config.browser == ""){
+            config.browser = "chrome";
+        }
+        if(!config.iisExpressPath || config.iisExpressPath == ""){
+            config.iisExpressPath = "C:\\Program Files (x86)\\IIS Express"
+        }
+
+        return gulp.src('./index.html')
+            .pipe(open('', {
+                url: config.startUrl,
+                app: config.browser
+            }))
+            .pipe(startSites(config));
     }
 
     //starting the sites.
     function startSites(config){
-        if(config.iisExpressPath == ""){
-            config.iisExpressPath = "C:\\Program Files (x86)\\IIS Express"
-        }
 
         config.sitePaths.forEach(function(item){
             var cmd = 'iisexpress /site:"'  + item + '"';
@@ -37,9 +54,9 @@
                     cwd: config.iisExpressPath
                 }))
         });
-		
-		config.appPools.foreach(function(item){
-			var cmd = 'iisexpress /apppool:"' + item + '"';
+
+        config.appPools.foreach(function(item){
+            var cmd = 'iisexpress /apppool:"' + item + '"';
 
             if(config.configFile !== ""){
                 cmd += '/configFile:"' + config.configFile + '"';
@@ -51,7 +68,7 @@
                 ],{
                     cwd: config.iisExpressPath
                 }))
-		});
+        });
     }
 
     //Exporting the plugin main function

@@ -1,0 +1,10 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "dependencies": {
+    "gulp-open": "^0.3.2",
+    "gulp": "^3.8.11",
+    "gulp-shell": "^0.3.0",
+    "gulp-util": "^3.0.4"
+  }
+}
