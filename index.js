@@ -13,7 +13,7 @@
         if(!config){
             throw new util.PluginError(PLUGIN_NAME, "Config file is missing!");
         }
-		if(!config.configFile){
+        if(!config.configFile){
             config.configFile = "";
         }
         if(!config.sitePaths){
@@ -37,7 +37,8 @@
                 url: config.startUrl,
                 app: config.browser
             }))
-            .pipe(startSites(config));
+            .pipe(startSites(config))
+            .on('error', util.log);
     }
 
     //starting the sites.
@@ -56,6 +57,7 @@
                 ],{
                     cwd: config.iisExpressPath
                 }))
+                .on('error', util.log);
         });
 
         config.appPools.forEach(function(item){
@@ -71,7 +73,10 @@
                 ],{
                     cwd: config.iisExpressPath
                 }))
+                .on('error', util.log);
         });
+
+        return gulp.src('');
     }
 
     //Exporting the plugin main function
