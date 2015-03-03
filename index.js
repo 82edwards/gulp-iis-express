@@ -31,6 +31,7 @@
         if(!config.iisExpressPath || config.iisExpressPath == ""){
             config.iisExpressPath = "C:\\Program Files (x86)\\IIS Express"
         }
+
         return gulp.src('/index.html')
             .pipe(open('', {
                 url: config.startUrl,
