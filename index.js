@@ -28,6 +28,9 @@
         if(!config.browser || config.browser == ""){
             config.browser = "chrome";
         }
+        if(!config.sysTray){
+            config.sysTray = true;
+        }
         if(!config.iisExpressPath || config.iisExpressPath == ""){
             config.iisExpressPath = "C:\\Program Files (x86)\\IIS Express"
         }
@@ -49,6 +52,12 @@
             if(config.configFile !== ""){
                 cmd += '/configFile:"' + config.configFile + '"';
             }
+            
+            if (config.sysTray){
+                cmd += ' /systray:true';
+            }else{
+                cmd += ' /systray:false';
+            }
 
             gulp.src('')
                 .pipe(shell([
@@ -64,6 +73,12 @@
 
             if(config.configFile !== ""){
                 cmd += '/configFile:"' + config.configFile + '"';
+            }
+            
+            if (config.sysTray){
+                cmd += ' /systray:true';
+            }else{
+                cmd += ' /systray:false';
             }
 
             gulp.src('')
