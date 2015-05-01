@@ -44,7 +44,7 @@
             config.sysTray = true;
         }
         if(!config.iisExpressPath || config.iisExpressPath == ""){
-            config.iisExpressPath = "C:\\Program Files (x86)\\IIS Express"
+            config.iisExpressPath = process.env.PROGRAMFILES + "\\IIS Express";
         }
         return gulp.src('/index.html')
             .pipe(open('', {
