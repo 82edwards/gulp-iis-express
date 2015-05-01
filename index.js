@@ -19,8 +19,20 @@
         if(!config.sitePaths){
             config.sitePaths = [];
         }
-        if(!config.appPools){
-            config.appPools = [];
+        if(!config.appPath){
+            config.appPath = "";
+        }
+        if(!config.port){
+            config.port = 8080;
+        }
+        if (!config.clrVersion){
+            config.clrVersion = "v4.0";
+        }
+        if (config.configFile != "" && config.appPath != ""){
+            throw new util.PluginError(PLUGIN_NAME, "Cannot combine config file-based IIS Express run with path-based run");
+        }
+        if (config.appPath == "" && config.sitePaths.length == 0){
+            throw new util.PluginError(PLUGIN_NAME, "No sites to run in config");
         }
         if(!config.startUrl || config.startUrl == ""){
             throw new util.PluginError(PLUGIN_NAME, "StartUrl must be provided");
@@ -46,11 +58,16 @@
     //starting the sites.
     function startSites(config){
 
+        if (config.sitePaths.length == 0){
+            startPathSite(config);
+            return;
+        }
+        
         config.sitePaths.forEach(function(item){
             var cmd = 'iisexpress /site:"'  + item + '"';
 
             if(config.configFile !== ""){
-                cmd += '/configFile:"' + config.configFile + '"';
+                cmd += '/config:"' + config.configFile + '"';
             }
             
             if (config.sysTray){
@@ -67,28 +84,28 @@
                 }))
                 .on('error', util.log);
         });
+    }
+    
+    //starting an individual site
+    function startPathSite(config){
+        
+        var cmd = 'iisexpress /path:"' + config.appPath + '"';
+        cmd += ' /port:' + config.port;
+        cmd += ' /clr:' + config.clrVersion;
+        
+        if (config.sysTray){
+            cmd += ' /systray:true';
+        }else{
+            cmd += ' /systray:false';
+        }
 
-        config.appPools.forEach(function(item){
-            var cmd = 'iisexpress /apppool:"' + item + '"';
-
-            if(config.configFile !== ""){
-                cmd += '/configFile:"' + config.configFile + '"';
-            }
-            
-            if (config.sysTray){
-                cmd += ' /systray:true';
-            }else{
-                cmd += ' /systray:false';
-            }
-
-            gulp.src('')
-                .pipe(shell([
-                    cmd
-                ],{
-                    cwd: config.iisExpressPath
-                }))
-                .on('error', util.log);
-        });
+        gulp.src('')
+            .pipe(shell([
+                cmd
+            ],{
+                cwd: config.iisExpressPath
+            }))
+            .on('error', util.log);
 
         return gulp.src('');
     }
