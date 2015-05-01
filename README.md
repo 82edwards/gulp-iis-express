@@ -1,6 +1,6 @@
 # gulp-iis-express
 
-> msbuild plugin for [gulp](https://github.com/wearefractal/gulp).
+IIS Express website launcher plugin for [gulp](https://github.com/wearefractal/gulp).
 
 ## Usage
 
