@@ -11,7 +11,7 @@
     function gulpIISExpress(config){
 
         if(!config){
-            throw new util.PluginError(PLUGIN_NAME, "Config file is missing!");
+            throw new util.PluginError(PLUGIN_NAME, "Config is missing!");
         }
         if(!config.configFile){
             config.configFile = "";
