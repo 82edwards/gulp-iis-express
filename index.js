@@ -22,21 +22,33 @@
         if(!config.appPools){
             config.appPools = [];
         }
-        if(!config.startUrl || config.startUrl == ""){
-            throw new util.PluginError(PLUGIN_NAME, "StartUrl must be provided");
-        }
-        if(!config.browser || config.browser == ""){
-            config.browser = "chrome";
         }
         if(!config.iisExpressPath || config.iisExpressPath == ""){
             config.iisExpressPath = "C:\\Program Files (x86)\\IIS Express"
+        }
+        return gulp.src('/index.html')
+            .pipe(startSites(config))
+            .on('error', util.log);
+    }
+    
+    //launch browser helper function
+    gulpIISExpress.launchBrowser = function(config){
+        
+        // Default options
+        if (!config) {
+            throw new util.PluginError(PLUGIN_NAME, "Missing config for launchBrowser");
+        }
+        if (!config.startUrl || config.startUrl == ""){
+            throw new util.PluginError(PLUGIN_NAME, "startUrl must be provided");
+        }
+        if (!config.browser || config.browser == ""){
+            config.browser = "chrome";
         }
         return gulp.src('/index.html')
             .pipe(open('', {
                 url: config.startUrl,
                 app: config.browser
             }))
-            .pipe(startSites(config))
             .on('error', util.log);
     }
 
