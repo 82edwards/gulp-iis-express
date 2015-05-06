@@ -1,6 +1,6 @@
 {
 	"name": "gulp-iis-express",
-	"version": "1.0.5.1",
+	"version": "1.0.6",
 	"description": "Gulp plugin for starting iis express",
 	"repository":{
 		"type": "git",
