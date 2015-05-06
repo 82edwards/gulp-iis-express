@@ -34,7 +34,6 @@
         if (config.appPath == "" && config.sitePaths.length == 0){
             throw new util.PluginError(PLUGIN_NAME, "No sites to run in config");
         }
-        }
         if(!config.sysTray){
             config.sysTray = true;
         }
