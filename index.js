@@ -95,6 +95,7 @@
                 }))
                 .on('error', util.log);
         });
+        return gulp.src('');
     }
     
     //starting an individual site
