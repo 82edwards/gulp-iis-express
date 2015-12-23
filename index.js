@@ -78,7 +78,7 @@
             var cmd = 'iisexpress /site:"'  + item + '"';
 
             if(config.configFile !== ""){
-                cmd += '/config:"' + config.configFile + '"';
+                cmd += ' /config:"' + config.configFile + '"';
             }
             
             if (config.sysTray){
